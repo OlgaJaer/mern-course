@@ -1,9 +1,18 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import { useHttp } from "../hooks/http.hook";
+import { useMessage } from "../hooks/message.hook";
 
 export const AuthPage = () => {
-  const { loading, request } = useHttp();
+  const message = useMessage();
+  const { loading, request, error, clearError } = useHttp();
   const [form, setForm] = useState({ email: "", password: "" });
+
+  useEffect(() => {
+      //console.log("Error;" , error)
+    message(error);
+    clearError();
+  }, [error, message, clearError]);
+
   const changeHandler = (event) => {
     setForm({ ...form, [event.target.name]: event.target.value });
   };
@@ -23,7 +32,6 @@ export const AuthPage = () => {
           <div className="card-content white-text">
             <span className="card-title">Авторизация</span>
             <div>
-
               <div className="input-field">
                 <input
                   placeholder="Введите email"
@@ -51,7 +59,6 @@ export const AuthPage = () => {
                 />
                 <label htmlFor="password">Пароль</label>
               </div>
-
             </div>
           </div>
           <div className="card-action">
