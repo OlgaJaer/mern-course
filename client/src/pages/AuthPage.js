@@ -8,7 +8,6 @@ export const AuthPage = () => {
   const [form, setForm] = useState({ email: "", password: "" });
 
   useEffect(() => {
-      //console.log("Error;" , error)
     message(error);
     clearError();
   }, [error, message, clearError]);
@@ -23,6 +22,15 @@ export const AuthPage = () => {
       console.log("data", data);
     } catch (error) {} // обработано в useHttp
   };
+
+  const loginHandler = async () => {
+    try {
+      const data = await request("/api/auth/login", "POST", { ...form });
+      console.log("data", data);
+    } catch (error) {} // обработано в useHttp
+  };
+
+
   return (
     <div className="row">
       <div className="col s6 offset-s3">
@@ -62,7 +70,10 @@ export const AuthPage = () => {
             </div>
           </div>
           <div className="card-action">
-            <button className="btn orange darken-1" style={{ marginRight: 10 }}>
+            <button className="btn orange darken-1" 
+            style={{ marginRight: 10 }}
+            onClick={loginHandler}
+            >
               Войти
             </button>
             <button
