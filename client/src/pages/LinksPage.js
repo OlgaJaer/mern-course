@@ -2,7 +2,7 @@ import React, { useState, useContext, useCallback, useEffect } from "react";
 import { useHttp } from "../hooks/http.hook";
 import { AuthContext } from "../context/AuthContext";
 import { Loader } from "../components/Loader";
-import {LinksList} from "../components/LinksList"
+import { LinksList } from "../components/LinksList";
 
 export const LinksPage = () => {
   const { token } = useContext(AuthContext);
@@ -14,7 +14,7 @@ export const LinksPage = () => {
       const fetched = await request(`/api/link`, "GET", null, {
         Authorization: `Bearer ${token}`,
       });
-      setLinks(fetched)
+      setLinks(fetched);
     } catch (error) {}
   }, [token, request]);
 
@@ -26,9 +26,5 @@ export const LinksPage = () => {
     return <Loader />;
   }
 
-  return (
-    <>
-    {!loading && <LinksList links={links} />}
-    </>
-  );
+  return <>{!loading && <LinksList links={links} />}</>;
 };
