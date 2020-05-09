@@ -2,6 +2,7 @@ const express = require("express");
 const path = require("path");
 const config = require("config");
 const mongoose = require("mongoose");
+require('dotenv').config()
 
 const app = express();
 
@@ -19,12 +20,14 @@ if (process.env.NODE_ENV === "production") {
   });
 }
 
-const PORT = config.get("port") || 5000;
+//const PORT = config.get("port") || 5000;
+const PORT = process.env.port || 5000;
 
 async function start() {
   try {
     //connect возвращает промис
-    await mongoose.connect(config.get("mongoUri"), {
+    //await mongoose.connect(config.get("mongoUri"), {
+    await mongoose.connect(process.env.mongoUri, {
       useNewUrlParser: true,
       useUnifiedTopology: true,
       useCreateIndex: true,

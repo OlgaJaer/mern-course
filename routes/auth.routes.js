@@ -5,6 +5,7 @@ const jwt = require("jsonwebtoken");
 const router = Router();
 const config = require("config");
 const User = require("../models/User");
+require('dotenv').config()
 
 // /api/auth/register
 router.post(
@@ -86,7 +87,8 @@ router.post(
 
       const token = jwt.sign(
           { userId: user.id }, 
-        config.get("jwtSecret"),
+        //config.get("jwtSecret"),
+        process.env.jwtSecret,
         {expiresIn: '1h'}
       );
 
